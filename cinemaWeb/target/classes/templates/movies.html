@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Repertuar</title>
+</head>
+<body>
+
+<form method="get" >
+    <p>
+        <input type= "text" name="name"/>
+            Sortuj wedlug ocen
+            <input type="checkbox" onclick="document.getElementById('id').style.display = this.checked ? 'block' : 'none'; this.form.elements['asc'].disabled = !this.checked" />
+            <div id="id" style="display: none">
+                <input type="radio" name="sort" value="asc"  />Rosnaco
+                <input type="radio" name="sort" value="desc"  />Malejaco
+             </div>
+    </p>
+    <p>
+        Wybierz gatunek filmu
+        <input type="checkbox" name="type" value="akcja"  />Akcja
+        <input type="checkbox" name="type" value="dramat" />Dramat
+        <input type="checkbox" name="type" value="fantasy"/>Fantasy
+        <input type="checkbox" name="type" value="horror"/>Horror
+        <input type="checkbox" name="type" value="komedia"/>Komedia
+        <input type="checkbox" name="type" value="przygodowy" />Przygodowy
+        <input type="checkbox" name="type" value="sci-fi"/>Science-fiction
+        <input type="checkbox" name="type" value="thriller"/>Thriller
+    </p>
+    <p>
+        <button>Filtruj</button>
+    </p>
+
+</form>
+
+<div th:if="${!movies.isEmpty()}">
+    <table>
+        <thead>
+        <tr>
+            <th>Nazwa</th>
+            <th>Premiera</th>
+            <th>Czas trwania</th>
+            <th>Napisy</th>
+            <th>3D</th>
+            <th>Rezyser</th>
+            <th>Gatunek</th>
+            <th>Produkcja</th>
+            <th>Ocena</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="movie : ${movies}">
+            <td th:text="${movie.name}"></td>
+            <td th:text="${movie.premiere}"></td>
+            <td th:text="${movie.duration}"></td>
+            <td th:text="${movie.subtitles}"></td>
+            <td th:text="${movie.td}"></td>
+            <td th:text="${movie.director}"></td>
+            <td th:text="${movie.type}"></td>
+            <td th:text="${movie.production}"></td>
+            <td th:text="${movie.rating/movie.numberofvotes}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:if="${movies.isEmpty()}">
+    Brak wyników
+</div>
+
+</body>
+</html>
