@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title th:text="${movie.name}"></title>
+</head>
+<body>
+    <h1 th:text="${movie.name}"> </h1>
+    <p>
+        <b>Premiera:</b>
+        <th th:text="${movie.premiere}"></th>
+    </p>
+    <p>
+        <b>Czas trwania:</b>
+    <th th:text="${movie.duration}"></th>
+    </p>
+    <p>
+        <b>Napisy:</b>
+    <th th:text="${movie.subtitles}"></th>
+    </p>
+    <p>
+        <b>3D:</b>
+        <th th:text="${movie.td}"></th>
+    </p>
+    <p>
+        <b>Rezyser:</b>
+        <th th:text="${movie.director}"></th>
+    </p>
+    <p>
+        <b>Gatunek:</b>
+        <th th:text="${movie.type}"></th>
+    </p>
+    <p>
+        <b>Produkcja:</b>
+        <th th:text="${movie.production}"></th>
+    </p>
+    <p>
+        <b>Ocena:</b>
+        <th th:text="${movie.rating/movie.numberofvotes}"></th>
+    </p>
+
+    <h2>
+       <a href="/">Strona glowna</a>
+        <a href="/movies?name=">Powrot do wyszukiwania</a>
+    </h2>
+
+</body>
+</html>
