@@ -28,6 +28,11 @@ public class MovieController {
         return "movies";
     }
 
+    @RequestMapping(value = "/movie", method = RequestMethod.GET)
+        public String showMovie(@RequestParam("name") String name, Model model){
+        model.addAttribute("movie",movieRepo.findByName(name));
+        return "movie";
+    }
     /*@RequestMapping(value = "/movies", method = RequestMethod.POST)
     public String findMovie(@ModelAttribute("name") @Valid String name, Model model){
       /*  if(name.equals("Nazwa_rosnąco")){
