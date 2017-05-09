@@ -1,13 +1,16 @@
-package pl.cinema;
+package pl.cinema.repository;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import pl.cinema.model.Movie;
 
 import java.util.List;
 
 public interface MovieRepository extends CrudRepository<Movie, Integer> {
     List<Movie> findByNameContainingOrderByNameAsc(String name);
+
+    Movie findByName(String name);
 
     @Query("select m from Movie m where name like %:movie% order by rating/numberofvotes desc")
     List<Movie> findByNameOrderByAverageRatingDesc(@Param("movie") String movie);
