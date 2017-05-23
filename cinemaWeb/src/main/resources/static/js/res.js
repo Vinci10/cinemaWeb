@@ -1,6 +1,4 @@
-/**
- * Created by Sebastian on 23.05.2017.
- */
+
 document.addEventListener("DOMContentLoaded", function(event) {
 
     var name = location.search.split('name=')[1];
