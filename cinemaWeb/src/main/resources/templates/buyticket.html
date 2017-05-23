@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>Kup bilet</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" th:href="@{/css/layout.css}"
+          href="../static/css/layout.css" />
+          -->
+</head>
+<body>
+    <a href="/movies?name=">Powrot do wyszukiwania</a>
+
+    <div th:if="${successMessage=='null'}">
+        <script src="/js/res.js"></script>
+<!--
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <form autocomplete="off"
+                          th:object="${reservation}" method="post" class="form-horizontal"
+                          role="form">
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <label	th:if="${#fields.hasErrors('room')}" th:errors="*{room}"
+                                          class="validation-message"></label>
+                                <input type="text" th:field="*{room}"
+                                       placeholder="Room" class="form-control" />
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <input type="text" th:field="*{place}" placeholder="Place"
+                                       class="form-control" /> <label
+                                    th:if="${#fields.hasErrors('place')}" th:errors="*{place}"
+                                    class="validation-message"></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <input type="text" th:field="*{day}"
+                                       placeholder="Day" class="form-control" /> <label
+                                    th:if="${#fields.hasErrors('day')}" th:errors="*{day}"
+                                    class="validation-message"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <input type="text" th:field="*{time}"
+                                       placeholder="Time" class="form-control" /> <label
+                                    th:if="${#fields.hasErrors('time')}" th:errors="*{time}"
+                                    class="validation-message"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                    <button type="submit" class="btn btn-primary btn-block">Buy</button>
+                            </div>
+                            </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+-->
+
+    </div>
+
+    <div th:unless="${successMessage=='null'}">
+        <span th:utext="${successMessage}"></span>
+    </div>
+
+    <a href="/">Strona glowna</a>
+</body>
+</html>

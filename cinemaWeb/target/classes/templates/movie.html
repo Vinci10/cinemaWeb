@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title th:text="${movie.name}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" th:href="@{/css/layout.css}"
+          href="../static/css/layout.css" />
+</head>
+<body>
+    <h1 th:text="${movie.name}"> </h1>
+    <p>
+        <b>Premiera:</b>
+        <th th:text="${movie.premiere}"></th>
+    </p>
+    <p>
+        <b>Czas trwania:</b>
+    <th th:text="${movie.duration}"></th>
+    </p>
+    <p>
+        <b>Napisy:</b>
+    <th th:text="${movie.subtitles}"></th>
+    </p>
+    <p>
+        <b>3D:</b>
+        <th th:text="${movie.td}"></th>
+    </p>
+    <p>
+        <b>Rezyser:</b>
+        <th th:text="${movie.director}"></th>
+    </p>
+    <p>
+        <b>Gatunek:</b>
+        <th th:text="${movie.type}"></th>
+    </p>
+    <p>
+        <b>Produkcja:</b>
+        <th th:text="${movie.production}"></th>
+    </p>
+    <p>
+        <b>Ocena:</b>
+        <th th:text="${movie.rating/movie.numberofvotes}"></th>
+    </p>
+
+    <div th:unless="${message=='null'}">
+        <p>
+        <div sec:authorize="isAnonymous()">
+            <a th:href="@{/buyticket(name=${movie.name},login='no')}">Kup bilet</a>
+        </div>
+
+        <div sec:authorize="isAuthenticated()">
+            <a th:href="@{/buyticket(name=${movie.name},login='yes')}">Kup bilet</a>
+        </div>
+
+        </p>
+    </div>
+
+
+
+    <h2>
+       <a href="/">Strona glowna</a>
+        <a href="/movies?name=">Powrot do wyszukiwania</a>
+    </h2>
+
+</body>
+</html>

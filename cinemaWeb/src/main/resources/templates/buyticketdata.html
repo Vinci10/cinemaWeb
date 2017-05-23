@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>Dane</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" th:href="@{/css/layout.css}"
+          href="../static/css/layout.css" />
+</head>
+<body>
+<div th:if="${successMessage=='null'}">
+
+    <div sec:authorize="isAnonymous()">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <form autocomplete="off"
+                          th:object="${guestTicket}" method="post" class="form-horizontal"
+                          role="form">
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <label	th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                          class="validation-message"></label>
+                                <input type="text" th:field="*{email}"
+                                       placeholder="Email" class="form-control" />
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <input type="text" th:field="*{name}" placeholder="Name"
+                                       class="form-control" /> <label
+                                    th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                                    class="validation-message"></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <input type="text" th:field="*{lastName}"
+                                       placeholder="Last Name" class="form-control" /> <label
+                                    th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                                    class="validation-message"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <button type="submit" class="btn btn-primary btn-block">Buy</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:unless="${successMessage=='null'}">
+    <span th:utext="${successMessage}"></span>
+</div>
+<a href="/">Strona glowna</a>
+</body>
+</html>

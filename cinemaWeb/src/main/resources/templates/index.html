@@ -1,12 +1,51 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <title>Kino TAMS</title>
+    <!--
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+   <link rel="stylesheet" type="text/css"
+         href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+   <link rel="stylesheet" th:href="@{/css/layout.css}"
+         href="../static/css/layout.css" />
+         -->
 </head>
 <body>
-    <h1>
-        <th th:text="${hello}">hello</th>
-    </h1>
-    <a class="class1 class2" href="/movies?name=">Repertuar</a>
+<h1>
+    <th th:text="${hello}">hello</th>
+</h1>
+<a class="class1 class2" href="/movies?name=">Repertuar</a>
+
+<h2>
+    <div th:if="${param.logout}">
+        <div class="alert alert-info">
+            You have been logged out.
+        </div>
+    </div>
+</h2>
+
+<div sec:authorize="isAnonymous()">
+    <a class="class1 class2" href="/login">Log in</a>
+    <a class="class1 class2" href="/registration">Register</a>
+</div>
+
+<div sec:authorize="isAuthenticated()">
+    Logged user: <span sec:authentication="name"></span>
+    Roles: <span sec:authentication="principal.authorities">[user, admin]</span>
+    <a th:href="@{/logout}">Logout</a>
+</div>
+
+<div sec:authorize="hasAuthority('admin')">
+    <a href="/admin">Admin panel</a>
+</div>
+
+<div sec:authorize="hasAuthority('user')">
+    <a href="/user">User panel</a>
+</div>
+
 </body>
 </html>
