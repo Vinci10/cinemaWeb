@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <title >Dodaj film</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            Nazwa
+            <form autocomplete="off" action="#" th:action="@{/admin/addMovie}"
+                  th:object="${movie}" method="post" class="form-horizontal"
+                  role="form">
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                               class="validation-message"  ></label>
+                        <input type="text" th:field="*{name}" th:value="${movie.name}" class="form-control"  />
+                    </div>
+                </div>
+                Premiera
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label	th:if="${#fields.hasErrors('premiere')}" th:errors="*{premiere}"
+                                  class="validation-message"></label>
+                        <input type="text" th:field="*{premiere}" th:value="${movie.premiere}" class="form-control"/>
+                    </div>
+                </div>
+                Czas trwania
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="text" th:field="*{duration}" th:value="${movie.duration}"
+                               class="form-control" /> <label
+                            th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}"
+                            class="validation-message" ></label>
+                    </div>
+                </div>
+                Napisy
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="text" th:field="*{subtitles}" th:value="${movie.subtitles}"
+                               class="form-control"  /> <label
+                            th:if="${#fields.hasErrors('subtitles')}" th:errors="*{subtitles}"
+                            class="validation-message" ></label>
+                    </div>
+                </div>
+                3D
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="text" th:field="*{td}" th:value="${movie.td}"
+                               class="form-control"  /> <label
+                            th:if="${#fields.hasErrors('td')}" th:errors="*{td}"
+                            class="validation-message" ></label>
+                    </div>
+                </div>
+                Reżyseria
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="text" th:field="*{director}" th:value="${movie.director}"
+                               class="form-control"  /> <label
+                            th:if="${#fields.hasErrors('director')}" th:errors="*{director}"
+                            class="validation-message" ></label>
+                    </div>
+                </div>
+                Gatunek
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="text" th:field="*{type}" th:value="${movie.type}"
+                               class="form-control"  /> <label
+                            th:if="${#fields.hasErrors('type')}" th:errors="*{type}"
+                            class="validation-message" ></label>
+                    </div>
+                </div>
+                Produkcja
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="text" th:field="*{production}" th:value="${movie.production}"
+                               class="form-control"  /> <label
+                            th:if="${#fields.hasErrors('production')}" th:errors="*{production}"
+                            class="validation-message" ></label>
+                    </div>
+                </div>
+                Opis
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="text" th:field="*{description}" th:value="${movie.description}"
+                               class="form-control"  /> <label
+                            th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+                            class="validation-message" ></label>
+                    </div>
+                </div>
+                Cena
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="text" th:field="*{price}" th:value="${movie.price}"
+                               class="form-control"  />
+                        <div th:if="${#fields.hasErrors('price')}">Niepoprawna cena biletu</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <button type="submit" name ="sub" class="button specbut">Dodaj</button>
+                    </div>
+                </div>
+                    <th th:text="${message}"></th>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

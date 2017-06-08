@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.cinema.model.Movie;
 import pl.cinema.repository.MovieRepository;
 import pl.cinema.repository.RepertoireRepository;
 
@@ -17,10 +18,13 @@ public class MovieController {
     private RepertoireRepository repertoireRepository;
 
     @RequestMapping(value = "/movies", method = RequestMethod.GET)
-    public String allMovies(@RequestParam(value = "name", required = true) String name,
+    public String allMovies(@RequestParam(value = "name", required = false) String name,
                             @RequestParam(value = "sort", required = false) String sort,
                             @RequestParam(value = "type", required = false) String type,Model model){
-        if(sort==null && type==null) model.addAttribute("movies",movieRepo.findByNameContainingOrderByNameAsc(name));
+        if(sort==null && type==null){
+            if(name == null) model.addAttribute("movies",movieRepo.findByNameContainingOrderByNameAsc(""));
+            else model.addAttribute("movies",movieRepo.findByNameContainingOrderByNameAsc(name));
+        }
         else if(sort!=null && type==null){
             if(sort.equals("asc")) model.addAttribute("movies",movieRepo.findByNameOrderByAverageRatingAsc(name));
             else model.addAttribute("movies",movieRepo.findByNameOrderByAverageRatingDesc(name));
@@ -34,9 +38,18 @@ public class MovieController {
     }
 
     @RequestMapping(value = "/movie", method = RequestMethod.GET)
-        public String showMovie(@RequestParam("name") String name, Model model){
-        model.addAttribute("movie",movieRepo.findByName(name));
-        if(repertoireRepository.countByIdMoviename(name) == 0) model.addAttribute("message","null");
+        public String showMovie(@RequestParam("name") String name,
+                                @RequestParam(value = "rate", required = false) String rate, Model model){
+        Movie m = movieRepo.findByName(name);
+        if(rate != null){
+            m.setNumberofvotes(m.getNumberofvotes()+1);
+            m.setRating(m.getRating()+Integer.parseInt(rate));
+            movieRepo.updateRating(m.getId());
+        }
+        model.addAttribute("movie",m);
+        if(m.getNumberofvotes()==0) model.addAttribute("rating",(double) 0);
+        else model.addAttribute("rating",(double) m.getRating()/m.getNumberofvotes());
+        if(repertoireRepository.countByMoviename(name) == 0) model.addAttribute("message","null");
         else model.addAttribute("message","notnull");
         return "movie";
     }

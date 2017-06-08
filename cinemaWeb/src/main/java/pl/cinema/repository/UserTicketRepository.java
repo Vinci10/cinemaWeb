@@ -12,4 +12,6 @@ import java.util.List;
 public interface UserTicketRepository extends CrudRepository<UserTicket,Integer>{
     @Query("select ticketid from UserTicket u where user_id=:id")
     List<Integer> findTicketsId(@Param("id")int id);
+
+    UserTicket findByTicketid(int id);
 }

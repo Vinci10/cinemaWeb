@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Repertuar</title>
+    <style>
+        html {
+            background: url("../images/nfs9.png") no-repeat left top,
+            url("../images/try3.gif") no-repeat left top;
+            background-size: cover;
+        }
+        .dark { position: fixed; z-index: 1; left: 0; top: 0;
+            width: 100%; height: 100%; background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.8);
+        }
+        .button { background-color: #4d4d4d; border: none; font-size: 13px; color: DarkGrey; padding: 5px 32px; text-align: center;
+            transition-duration: 0.4s; text-decoration: none; overflow: hidden; cursor: pointer; outline: none;
+        }
+        input::-webkit-input-placeholder       {text-indent: 0px; text-align: center; transition: text-indent 0.7s ease;}
+        input::-moz-placeholder                {text-indent: 0px; text-align: center; transition: text-indent 0.7s ease;}
+        input:-moz-placeholder                 {text-indent: 0px; text-align: center; transition: text-indent 0.7s ease;}
+        input:-ms-input-placeholder            {text-indent: 0px; text-align: center; transition: text-indent 0.7s ease;}
+        input:focus::-webkit-input-placeholder {text-indent: 500px; text-align: center; transition: text-indent 0.7s ease;}
+        input:focus::-moz-placeholder          {text-indent: 500px; text-align: center; transition: text-indent 0.7s ease;}
+        input:focus:-moz-placeholder           {text-indent: 500px; text-align: center; transition: text-indent 0.7s ease;}
+        input:focus:-ms-input-placeholder      {text-indent: 500px; text-align: center; transition: text-indent 0.7s ease;}
+        .specbut:hover:enabled { color: LavenderBlush ; background-color: #44a08c }
+        .specbut:active { color: DarkGrey ;background-color: #53723F; transform: translateY(4px); }
+        .dark-photo{ margin-left: 2%; margin-top: 2%; color: DarkGrey; background-color: #393834; position: absolute;}
+        .dark-top { margin-left: 300px; background-color: #454542; color: #b5f0ed; font-family: Impact Regular; font-size: 19pt;}
+        .dark-mid { padding: 2px; color: DarkGrey; font-family: Verdana; font-size: 10pt;}
+        #dark-bottom { top: 200px; left: 1070px; height: 200px; width: 50px; position: absolute; background-color: #31312f; color: DarkGrey; font-family: Verdana; font-size: 10pt; border: 1px solid #888; overflow: auto; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)}
+        #dark-bottom2 { top: 220px; left: 243px; height: 150px; width: 50px; position: absolute; background-color: #31312f; color: DarkGrey; font-family: Verdana; font-size: 10pt; border: 1px solid #888; overflow: auto; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)}
+        a.fill-db {display: block; height: 100%; width: 100%; text-decoration: none;}
+        .dark-window { position: relative; background-color: #454542; margin: auto; padding: 0; overflow: auto; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);}
+        .dark-sit { position: relative; background-color: #333330; border: 1px solid #9f9e9e; overflow: auto; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);}
+        .star { width:4%; height:4%; border-style: none; }
+        input[type=NN] { width: 30%; height: 4%; font-family: Verdana; font-size: 10pt; text-align: center;
+            border: 2px #99ccff; border-radius: 4px; background-color: #4d4d4d;color: #b5f0ed; outline: none;}
+        .lab { font-family: Verdana; text-transform: font-size: 6pt; color: DarkGrey; }
+        .styled-combo {
+            border: 1px solid #888;
+            overflow: auto;
+            height: 34px;
+            background: #333330;
+            width: 100px;
+        }
+        .styled-combo select {
+            border-radius: 0;
+            background: #31312f;
+            height: 34px;
+            padding-left: 10px;
+            border: 0;
+            font-size: 16px;
+            line-height: 1;
+            -webkit-appearance: none;
+            width: 100px;
+            visibility: visible;
+        }
+        table {
+            font-family: Verdana;
+            font-size: 10pt;
+            border-collapse: collapse;
+            color: #b5f0ed;
+            width: 100%;
+        }
+        td, th { text-align: center; }
+        tr:nth-child(1) { font-family: Impact regular; font-size: 14pt; color: #b5f0ed; text-transform: uppercase;}
+        tr:nth-child(even) { background-color: #333330; }
+        td {
+            display:block;
+            height:100%;
+            width:100%;
+        }
+        .hrN { font-family: Verdana; font-size: 10pt; color: #b5f0ed; text-decoration: none; width: 100%;}
+    </style>
+</head>
+<body>
+
+<a href="/"><img src = "../images/CinUN.png"  style="position: absolute; left: 42.9%; bottom: 90.4%"
+                 onMouseOver="this.src='../images/CinN.png'" onMouseOut="this.src='../images/CinUN.png'"/></a>
+<div class = "dark-window" style="height:510px; width: 686px; top: 55px; right: 7px;">
+    <form method="get" name="Search" enctype="text/plain" id="Search">
+        <input type="NN" style="position: absolute; margin-left: 5%; margin-top: 3%;" name="name" maxlength="25" placeholder="Szukaj po nazwie"/>
+        <input id="type" type="checkbox" name="sort" style = "position: absolute; margin-left: 26%; margin-top: 7.3%;" value="desc"/>
+        <label class = "lab" for="type" id="So1" style = "font-size: 10pt; position: absolute; margin-left: 5%; margin-top: 7%;">Sortuj według ceny</label>
+    </form>
+    <button type="submit" form="Search" class="button specbut" style="position: absolute; margin-top: 14%; margin-left: 81%">Filtruj</button>
+    <div class = "dark-window" style="height:330px; width: 686px; top: 180px;">
+        <table style = "position: relative;">
+            <tr>
+                <th>Numer</th> <th>Film</th> <th>Data</th> <th>Cena</th>
+            </tr>
+            <tr th:each="r : ${reservations}">
+                <td>
+                    <a class = "hrN" th:href="@{/user/history/check/{id}(id=${r.reservation.id}) }" th:text="${r.reservation.id}"></a>
+                </td>
+                <th th:text="${r.reservation.moviename}"></th>
+                <th th:text="${#dates.format(r.reservation.day, 'dd MMM yyyy')}"></th>
+                <th> <span th:text="@{${#numbers.formatDecimal(r.price, 0, 2)}}"/></th>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

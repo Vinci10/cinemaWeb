@@ -2,9 +2,11 @@ package pl.cinema.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.sql.Time;
+import java.util.Set;
 
 @Entity
 @Table(name="reservation")
@@ -27,14 +29,18 @@ public class Reservation {
     private String moviename;
 
     @Column(name = "day")
-   // @DateTimeFormat(pattern="dd-MM-yyyy")
-    @NotEmpty
-    private String day;
+    private Date day;
 
     @Column(name = "time")
-   // @DateTimeFormat(pattern="HH:mm")
-    @NotEmpty
-    private String time;
+    private Time time;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "ticket_snack", joinColumns = @JoinColumn(name = "ticket_id"), inverseJoinColumns = @JoinColumn(name = "snack_id"))
+    private Set<Snack> snacks;
+
+    public Set<Snack> getSnacks() { return snacks; }
+
+    public void setSnacks(Set<Snack> snacks) { this.snacks = snacks; }
 
     public int getId() {
         return id;
@@ -68,19 +74,19 @@ public class Reservation {
         this.moviename = moviename;
     }
 
-    public String getDay() {
+    public Date getDay() {
         return day;
     }
 
-    public void setDay(String day) {
+    public void setDay(Date day) {
         this.day = day;
     }
 
-    public String getTime() {
+    public Time getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Time time) {
         this.time = time;
     }
 }

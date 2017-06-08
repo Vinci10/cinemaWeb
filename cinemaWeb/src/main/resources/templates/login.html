@@ -1,39 +1,122 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Logowanie</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        html {
+            background: url("../images/nfs6.png") no-repeat left top,
+            url("../images/try3.gif") no-repeat left top;
+            background-size: cover;
+        }
+        input::-webkit-input-placeholder       {text-indent: 0px; text-align: center; transition: text-indent 0.7s ease;}
+        input::-moz-placeholder                {text-indent: 0px; text-align: center; transition: text-indent 0.7s ease;}
+        input:-moz-placeholder                 {text-indent: 0px; text-align: center; transition: text-indent 0.7s ease;}
+        input:-ms-input-placeholder            {text-indent: 0px; text-align: center; transition: text-indent 0.7s ease;}
+        input:focus::-webkit-input-placeholder {text-indent: 500px; text-align: center; transition: text-indent 0.7s ease;}
+        input:focus::-moz-placeholder          {text-indent: 500px; text-align: center; transition: text-indent 0.7s ease;}
+        input:focus:-moz-placeholder           {text-indent: 500px; text-align: center; transition: text-indent 0.7s ease;}
+        input:focus:-ms-input-placeholder      {text-indent: 500px; text-align: center; transition: text-indent 0.7s ease;}
 
-    <link rel="stylesheet" type="text/css"
-          href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+        input[type=text] { width: 20%; height: 4%; font-family: Verdana; font-size: 11pt; text-align: center;
+            border: 2px #99ccff; border-radius: 4px; background-color: #4d4d4d;color: DarkGrey; outline: none;
+        }
+        input[type=text2] { width: 55%; height: 10%; font-family: Verdana; font-size: 11pt; text-align: center;
+            border: 2px #99ccff; border-radius: 4px; background-color: #4d4d4d;color: DarkGrey; outline: none;
+        }
+        input[type=password] { width: 20%; height: 4%; font-family: Verdana; font-size: 11pt; text-align: center;
+            border: 2px #99ccff; border-radius: 4px; background-color: #4d4d4d; color: DarkGrey; outline: none;
+        }
+        input[type=submit] { background-color: #4d4d4d; border: none; color: DarkGrey; font-family: Verdana; padding: 5px 32px;
+            text-align: center; text-decoration: none; display: inline-block; font-size: 13px;
+        }
+        label { color: DarkGrey; font-family: Verdana; font-size: 13px; }
+        input[type=image] { outline: none; }
+        .astext { background:none; color: DarkGrey; border:none; margin:0; padding:0; cursor: pointer; outline: none; }
+        .astext:active {color: white;}
+        .hidden { display: none; }
+        .button { background-color: #4d4d4d; border: none; font-size: 13px; color: DarkGrey; padding: 5px 32px; text-align: center;
+            transition-duration: 0.4s; text-decoration: none; overflow: hidden; cursor: pointer; outline: none;
+        }
+        .specbut:hover:enabled { color: DarkGrey ; background-color: #53723F }
+        .specbut:hover:disabled { color: DarkGrey ; background-color: #854141 }
+        .specbut:active { color: DarkGrey ;background-color: #53723F; transform: translateY(4px); }
+        .dark { display: none; position: fixed; z-index: 1; padding-top: 100px; left: 0; top: 0;
+            width: 100%; height: 100%; background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.5);
+        }
+        .dark-window { position: relative; background-color: #454542; margin: auto; padding: 0; border: 1px solid #888; height: 60%;
+            width: 30%; overflow: auto; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+            -webkit-animation-name: animatetop; -webkit-animation-duration: 0.4s; animation-name: animatetop; animation-duration: 0.4s
+        }
+        .dark-window-h { position: relative; background-color: #454542; margin: auto; padding: 0; border: 1px solid #888; height: 45%;
+            width: 30%; overflow: auto; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+            -webkit-animation-name: animatetop; -webkit-animation-duration: 0.4s; animation-name: animatetop; animation-duration: 0.4s
+        }
+        @-webkit-keyframes animatetop { from {bottom:-150px; opacity:0} to {bottom:0; opacity:1}}
+        @keyframes animatetop { from {bottom:-150px; opacity:0} to {bottom:0; opacity:1}}
+        .dark-top { padding: 2px 16px; background-color: #242424; color: DarkGrey; font-family: Verdana; font-size: 11pt;}
+        .dark-mid {padding: 2px 16px; color: DarkGrey; font-family: Verdana; font-size: 10pt;}
+        .close { color: white; float: right; font-size: 28px;font-weight: bold; }
+        .close:hover, .close:focus { color: #000; text-decoration: none; cursor: pointer;}
+    </style>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">//<![CDATA[
+        function checkLog(a, b){
+            var f = document.forms[a].elements;
+            var cansub = true;
 
-    <link rel="stylesheet" th:href="@{/css/layout.css}"
-          href="../static/css/layout.css" />
-
-
+            for (var i = 0; i < f.length; i++) { if (f[i].value.length == 0) { cansub = false; break;}}
+            document.getElementById(b).disabled = !cansub
+        }
+        $(function(){
+            $('#innerD').slimScroll({
+                height: '250px',
+                color: '#878784'
+            });
+        });
+    //]]>
+    </script >
 </head>
-
 <body>
+<a href="/"><img src = "../images/CinUN.png" alt="Repertuar" style="position: absolute; left: 42%; bottom: 91%; width:17%"
+                             onMouseOver="this.src='../images/CinN.png'" onMouseOut="this.src='../images/CinUN.png'"/></a>
 <div class="container">
     <form th:action="@{/login}" method="POST" class="form-signin">
-        <h3 class="form-signin-heading" th:text="Welcome"></h3>
-        <br/>
-
-        <input type="text" id="email" name="email"  th:placeholder="Email"
-               class="form-control" /> <br/>
-        <input type="password"  th:placeholder="Password"
-               id="password" name="password" class="form-control" /> <br />
-
-        <div align="center" th:if="${param.error}">
-            <p style="font-size: 20; color: #ff1c19;">Email or Password invalid, please verify</p>
+    <input type="text" id="email" name="email" th:placeholder="Email" class="form-control" style="position: absolute; top: 65%; left: 39.5%;"/>
+    <input type="password" id="password" th:placeholder="Hasło" name="password" class="form-control" style="position: absolute; top: 71%; left: 39.5%;" maxlength="15"/>
+        <div th:if="${param.error}">
+            <span id='message' style="font-size: 11px; font-family: Verdana; color: #854141; position: absolute; top: 77%; left: 50%">Wprowadzony adres e-mail lub hasło są nieprawidłowe</span>
         </div>
-
-        <input id="remember_me" name="remember-me" type="checkbox"/>
-        <label for="remember_me" class="inline">Remember me</label>
-
-        <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit" th:text="Login"></button>
-    </form>
+    <button class="button specbut" name="Submit" value="Login" type="Submit" id="subL" style="position: absolute; top: 83%; left: 45%;" >Zaloguj się</button>
+</form>
 </div>
+<button class="astext" id="hasr" style="position: absolute; top: 77%; left: 39.5%;" >Zapomniałeś hasła ?</button>
+<div id="myDark" class="dark">
+    <div class="dark-window-h">
+        <div class="dark-top">
+            <span class="close">&times;</span>
+            <h4>Resetowanie hasła</h4>
+        </div>
+        <div class="dark-mid">
+            <form action="mailto:yura.mars.91@gmail.com" name="resForm" enctype="text/plain" id="form3">
+                <input type="text2" style="position: absolute; top: 150px; left: 90px;" onKeyup="checkLog('resForm','subRes')" name="Email2" placeholder="Email"/>
+            </form>
+            <button type="submit" style="position: absolute; top: 230px; left: 170px;"
+                    form="form3" id="subRes" class="button specbut" >Wyślij</button>
+        </div>
+    </div>
+</div>
+<script>
+    //<![CDATA[
+    var modal = document.getElementById('myDark');
+    var btn = document.getElementById("hasr");
+    var span = document.getElementsByClassName("close")[0];
+    btn.onclick = function() { modal.style.display = "block"; }
+    span.onclick = function() { modal.style.display = "none";}
+    window.onclick = function(event) {
+        if (event.target == modal) { modal.style.display = "none";}
+    }
+    //]]>
+</script>
 </body>
 </html>

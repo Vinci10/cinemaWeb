@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+</head>
+<body>
+<div class="center">
+    <form method="get" >
+        <pre>
+            <h1> Wybierz Film</h1>
+            <select name="name">
+            <tbody>
+                <tr th:each="movie : ${movies}">
+                    <td>
+                        <!--<a th:href="@{${url} +'/'+${day} }" th:text="${day}"></a>-->
+                        <option th:href="@{${url} +'/'+${day} }" th:text="${movie.name}"></option>
+                    </td>
+                </tr>
+            </tbody>
+        </select>
+<div th:if="${msg=='lista'}">
+    <table>
+        <thead>
+        <tr>
+            <th>Nazwa</th>
+            <th>Sala</th>
+            <th>Data</th>
+            <th>Godzina</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="t : ${ticket}">
+            <td th:text="${t.moviename}"></td>
+            <td th:text="${t.id.room}"></td>
+            <td th:text="${t.id.day}"></td>
+            <td th:text="${t.id.time}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+            <!--<button name="update" type="submit" value="update">Szukaj</button>-->
+        </pre>
+        <p th:text="${hello}" />
+    </form>
+</div>
+</body>
+</html>

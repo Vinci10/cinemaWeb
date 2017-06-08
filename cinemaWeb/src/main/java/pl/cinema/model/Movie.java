@@ -1,11 +1,15 @@
 package pl.cinema.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.NumberFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="Movie")
@@ -14,17 +18,43 @@ public class Movie{
     @Column(name="ID")
     @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
+    @Column(name="name")
+    @NotEmpty(message = "Proszę wpisać tytuł filmu")
     private String name;
+    @Column(name="premiere")
+    @NotEmpty(message = "Proszę wpisać datę premiery")
     private String premiere;
+    @Column(name="duration")
+    @NotEmpty(message = "Proszę wpisać czas trwania filmu")
     private String duration;
+    @Column(name="subtitles")
+    @NotEmpty(message = "Proszę wpisać informację o napisach")
     private String subtitles;
+    @Column(name="td")
+    @NotEmpty(message = "Proszę wpisać informację o jakości 3D")
     private String td;
+    @Column(name="director")
+    @NotEmpty(message = "Proszę wpisać reżyserię")
     private String director;
+    @Column(name="type")
+    @NotEmpty(message = "Proszę wpisać gatunek filmu")
     private String type;
+    @Column(name="production")
+    @NotEmpty(message = "Proszę wpisać informację o produkcji")
     private String production;
-    private double rating;
+    @Column(name="description")
+    @NotEmpty(message = "Proszę wpisać opis filmu")
+    private String description;
+    @Column(name="price")
+    @NumberFormat(style= NumberFormat.Style.CURRENCY)
+    private double price;
+    private int rating;
     private int numberofvotes;
 
+    public double getPrice() {return price; }
+    public void setPrice(double price) { this.price = price; }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
     public String getType() {return type;}
     public void setType(String type) {this.type = type;}
     public int getId() {
@@ -67,14 +97,12 @@ public class Movie{
     public void setDirector(String director) {
         this.director = director;
     }
-    public String getProduction() {
-        return production;
-    }
+    public String getProduction() { return production; }
     public void setProduction(String production) {
         this.production = production;
     }
-    public void setRating(double rating){this.rating=rating;}
-    public double getRating(){return rating;}
+    public void setRating(int rating){ this.rating=rating; }
+    public int getRating(){return rating;}
     public int getNumberofvotes() {return numberofvotes;}
     public void setNumberofvotes(int numberofvotes) {this.numberofvotes = numberofvotes;}
     @Override

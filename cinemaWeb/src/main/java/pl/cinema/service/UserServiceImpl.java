@@ -31,8 +31,6 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private ReservationRepository reservationRepository;
 
-
-
     @Override
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);

@@ -4,21 +4,32 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <title>Kino TAMS</title>
-    <!--
-   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <div sec:authorize="isAnonymous()">
 
-   <link rel="stylesheet" type="text/css"
-         href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <style>
+        html {
+        background: url("../images/nfs5.png") no-repeat left top,
+        url("../images/try3.gif") no-repeat left top;
+        background-size: cover;
+        }
+        </style>
 
-   <link rel="stylesheet" th:href="@{/css/layout.css}"
-         href="../static/css/layout.css" />
-         -->
+    </div>
+
+    <div sec:authorize="isAuthenticated()">
+
+        <style>
+            html {
+                background: url("../images/nfs8.png") no-repeat left top,
+                url("../images/try3.gif") no-repeat left top;
+                background-size: cover;
+            }
+        </style>
+
+    </div>
+
 </head>
 <body>
-<h1>
-    <th th:text="${hello}">hello</th>
-</h1>
-<a class="class1 class2" href="/movies?name=">Repertuar</a>
 
 <h2>
     <div th:if="${param.logout}">
@@ -28,9 +39,14 @@
     </div>
 </h2>
 
+<a href="/movies?name="><img src = "../images/CinUN.png" alt="Repertuar" style="position: absolute; left: 42%; bottom: 91%; width:17%"
+                             onMouseOver="this.src='../images/CinN.png'" onMouseOut="this.src='../images/CinUN.png'"/></a>
+
 <div sec:authorize="isAnonymous()">
-    <a class="class1 class2" href="/login">Log in</a>
-    <a class="class1 class2" href="/registration">Register</a>
+    <a href="/login"><img src = "../images/LogUN.png" alt="Logowanie" style="position: absolute; top: 20%;"
+                          onMouseOver="this.src='../images/LogN.png'" onMouseOut="this.src='../images/LogUN.png'"/></a>
+    <a href="/registration"><img src = "../images/RejUN.png" alt="Rejestracja" style="position: absolute; top: 20%; left: 81%;"
+                                 onMouseOver="this.src='../images/RejN.png'" onMouseOut="this.src='../images/RejUN.png'"/></a>
 </div>
 
 <div sec:authorize="isAuthenticated()">

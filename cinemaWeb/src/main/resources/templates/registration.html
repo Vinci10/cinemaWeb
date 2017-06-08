@@ -1,79 +1,198 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
 
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Rejestracja</title>
-    <!--
-   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        html {
+            background: url("../images/nfs6.png") no-repeat left top,
+            url("../images/try3.gif") no-repeat left top;
+            background-size: cover;
+        }
 
-   <link rel="stylesheet" type="text/css"
-         href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+        input::-webkit-input-placeholder       {text-indent: 0px; text-align: center; transition: text-indent 0.7s ease;}
+        input::-moz-placeholder                {text-indent: 0px; text-align: center; transition: text-indent 0.7s ease;}
+        input:-moz-placeholder                 {text-indent: 0px; text-align: center; transition: text-indent 0.7s ease;}
+        input:-ms-input-placeholder            {text-indent: 0px; text-align: center; transition: text-indent 0.7s ease;}
+        input:focus::-webkit-input-placeholder {text-indent: 500px; text-align: center; transition: text-indent 0.7s ease;}
+        input:focus::-moz-placeholder          {text-indent: 500px; text-align: center; transition: text-indent 0.7s ease;}
+        input:focus:-moz-placeholder           {text-indent: 500px; text-align: center; transition: text-indent 0.7s ease;}
+        input:focus:-ms-input-placeholder      {text-indent: 500px; text-align: center; transition: text-indent 0.7s ease;}
 
-   <link rel="stylesheet" th:href="@{/css/layout.css}"
-         href="../static/css/layout.css" />
-         -->
+        input[type=text] { width: 20%; height: 4%; font-family: Verdana; font-size: 11pt; text-align: center;
+            border: 2px #99ccff; border-radius: 4px; background-color: #4d4d4d;color: DarkGrey; outline: none;
+        }
+        input[type=NN] { width: 10%; height: 4%; font-family: Verdana; font-size: 11pt; text-align: center;
+            border: 2px #99ccff; border-radius: 4px; background-color: #4d4d4d;color: DarkGrey; outline: none;
+        }
+        input[type=text2] { width: 55%; height: 10%; font-family: Verdana; font-size: 11pt; text-align: center;
+            border: 2px #99ccff; border-radius: 4px; background-color: #4d4d4d;color: DarkGrey; outline: none;
+        }
+        input[type=password] { width: 20%; height: 4%; font-family: Verdana; font-size: 11pt; text-align: center;
+            border: 2px #99ccff; border-radius: 4px; background-color: #4d4d4d; color: DarkGrey; outline: none;
+        }
+        input[type=submit] { background-color: #4d4d4d; border: none; color: DarkGrey; font-family: Verdana; padding: 5px 32px;
+            text-align: center; text-decoration: none; display: inline-block; font-size: 13px;
+        }
+        label { color: DarkGrey; font-family: Verdana; font-size: 13px; }
+        input[type=image] { outline: none; }
+        .astext { background:none; color: DarkGrey; border:none; margin:0; padding:0; cursor: pointer; outline: none; }
+        .astext:active {color: white;}
+        .hidden { display: none; }
+        .button { background-color: #4d4d4d; border: none; font-size: 13px; color: DarkGrey; padding: 5px 32px; text-align: center;
+            transition-duration: 0.4s; text-decoration: none; overflow: hidden; cursor: pointer; outline: none;
+        }
+        .specbut:hover:enabled { color: DarkGrey ; background-color: #53723F }
+        .specbut:hover:disabled { color: DarkGrey ; background-color: #854141 }
+        .specbut:active { color: DarkGrey ;background-color: #53723F; transform: translateY(4px); }
+        .dark { display: none; position: fixed; z-index: 1; padding-top: 100px; left: 0; top: 0;
+            width: 100%; height: 100%; background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.5);
+        }
+        .dark-window { position: relative; background-color: #454542; margin: auto; padding: 0; border: 1px solid #888; height: 60%;
+            width: 30%; overflow: auto; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+            -webkit-animation-name: animatetop; -webkit-animation-duration: 0.4s; animation-name: animatetop; animation-duration: 0.4s
+        }
+        .dark-window-h { position: relative; background-color: #454542; margin: auto; padding: 0; border: 1px solid #888; height: 45%;
+            width: 30%; overflow: auto; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+            -webkit-animation-name: animatetop; -webkit-animation-duration: 0.4s; animation-name: animatetop; animation-duration: 0.4s
+        }
+        @-webkit-keyframes animatetop { from {bottom:-150px; opacity:0} to {bottom:0; opacity:1}}
+        @keyframes animatetop { from {bottom:-150px; opacity:0} to {bottom:0; opacity:1}}
+        .dark-top { padding: 2px 16px; background-color: #242424; color: DarkGrey; font-family: Verdana; font-size: 11pt;}
+        .dark-mid {padding: 2px 16px; color: DarkGrey; font-family: Verdana; font-size: 10pt;}
+        .close { color: white; float: right; font-size: 28px;font-weight: bold; }
+        .close:hover, .close:focus { color: #000; text-decoration: none; cursor: pointer;}
+    </style>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+
+    <script type="text/javascript">//<![CDATA[
+        function checkform(){
+            var f = document.forms["regForm"].elements;
+            var cansub = true;
+
+            if (document.getElementById('Hasło').value == document.getElementById('Powtórz_Hasło').value) {
+                cansub = true;
+                document.getElementById('message').style.color = '#53723F';
+                document.getElementById('message').innerHTML = 'matching';
+            } else {
+                cansub = false;
+                document.getElementById('message').style.color = '#854141';
+                document.getElementById('message').innerHTML = 'not matching';
+            }
+
+            if (document.getElementById('Reg').checked){
+                for (var i = 0; i < f.length-1; i++) { if (f[i].value.length == 0) { cansub = false; break;}}
+            }
+            else { cansub = false; }
+
+            document.getElementById('subH').disabled = !cansub
+        }
+        function checkLog(a, b){
+            var f = document.forms[a].elements;
+            var cansub = true;
+
+            for (var i = 0; i < f.length-1; i++) { if (f[i].value.length == 0) { cansub = false; break;}}
+            document.getElementById(b).disabled = !cansub
+        }
+        $(function(){
+            $('#innerD').slimScroll({
+                height: '250px',
+                color: '#878784'
+            });
+        });
+        //]]>
+    </script >
 </head>
-
 <body>
-<form th:action="@{/}" method="get">
-    <button class="btn btn-md btn-warning btn-block" type="Submit">Go To Login Page</button>
-</form>
-
+<a href="/"><img src = "../images/CinUN.png" alt="Repertuar" style="position: absolute; left: 42%; bottom: 91%; width:17%"
+                                   onMouseOver="this.src='../images/CinN.png'" onMouseOut="this.src='../images/CinUN.png'"/></a>
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <form autocomplete="off" action="#" th:action="@{/registration}"
                   th:object="${user}" method="post" class="form-horizontal"
                   role="form">
-                <h2>Registration Form</h2>
                 <div class="form-group">
                     <div class="col-sm-9">
                         <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
-                               class="validation-message"></label>
-                        <input type="text" th:field="*{name}" placeholder="Name"
-                               class="form-control" />
+                               class="validation-message"  style="font-size: 13px; font-family: Verdana; color: #854141; position: absolute; top: 62%; left: 60%" ></label>
+                        <input type="text" th:field="*{name}" placeholder="Imię"
+                               class="form-control"  style="position: absolute; top: 61%; left: 39.5%;"/>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-9">
                         <label	th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
-                                  class="validation-message"></label>
+                                  class="validation-message" style="font-size: 13px; font-family: Verdana; color: #854141; position: absolute; top: 67.5%; left: 60%"></label>
                         <input type="text" th:field="*{lastName}"
-                               placeholder="Last Name" class="form-control" />
+                               placeholder="Nazwisko" class="form-control" style="position: absolute; top: 66.5%; left: 39.5%;"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-9">
                         <input type="text" th:field="*{email}" placeholder="Email"
-                               class="form-control" /> <label
+                               class="form-control" style="position: absolute; top: 72%; left: 39.5%;" /> <label
                             th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-                            class="validation-message"></label>
+                            class="validation-message" style="font-size: 13px; font-family: Verdana; color: #854141; position: absolute; top: 73%; left: 60%"></label>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-9">
                         <input type="password" th:field="*{password}"
-                               placeholder="Password" class="form-control" /> <label
+                               placeholder="Hasło" class="form-control" style="position: absolute; top: 78%; left: 39.5%;" /> <label
                             th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
-                            class="validation-message"></label>
+                            class="validation-message" style="font-size: 13px; font-family: Verdana; color: #854141; position: absolute; top: 79.5%; left: 60%"></label>
                     </div>
                 </div>
-
+                <input id="Reg" type="checkbox" style="position: absolute; top: 84.5%; left: 40.3%;" name="Reg" onclick="this.form.elements['sub'].disabled = !this.checked" />
+                <label for="Reg" id="zap" class="label" style="position: absolute; top: 84.5%; left: 42.3%;"> Zapoznałem się z regulaminem </label>
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <button type="submit" class="btn btn-primary btn-block">Register User</button>
+                        <button type="submit" name ="sub" class="button specbut" style="position: absolute; top: 88%; left: 45.5%;" disabled="disabled">Zarejestruj</button>
                     </div>
                 </div>
 
-                <span th:utext="${successMessage}"></span>
+                <span th:utext="${successMessage}" style="font-size: 14px; font-family: Verdana; color: green; position: absolute; top: 60%; left: 42%" ></span>
 
 
             </form>
         </div>
     </div>
 </div>
-
+<span id='message' style="font-size: 11px; font-family: Verdana; position: absolute; top: 78%; left: 60%"></span>
+<div id="myDark" class="dark">
+    <div class="dark-window">
+        <div class="dark-top">
+            <span class="close">&times;</span>
+            <h4>Polityka prywatności</h4>
+        </div>
+        <div id="innerD" class="dark-mid">
+            <p>1. Serwis zbiera w sposób automatyczny tylko informacje zawarte w plikach cookies.</p>
+            <p>2. Pliki (cookies) są plikami tekstowymi, które przechowywane są w urządzeniu końcowym użytkownika serwisu. Przeznaczone są do korzystania ze stron serwisu. Przede wszystkim zawierają nazwę strony internetowej swojego pochodzenia, swój unikalny numer, czas przechowywania na urządzeniu końcowym.</p>
+            <p>3. Operator serwisu (tu nazwa i ewentualnie adres) jest podmiotem zamieszczającym na urządzeniu końcowym swojego użytkownika pliki cookies oraz mającym do nich dostęp.</p>
+            <p>4. Operator serwisu wykorzystuje pliki (cookies) w celu:
+                dopasowania zawartości strony internetowej do indywidualnych preferencji użytkownika, przede wszystkim pliki te rozpoznają jego urządzenie, aby zgodnie z jego preferencjami wyświetlić stronę;
+                przygotowywania statystyk pomagających poznaniu preferencji i zachowań użytkowników, analiza tych statystyk jest anonimowa i umożliwia dostosowanie zawartości i wyglądu serwisu do panujących trendów, statystyki stosuje się też do oceny popularności strony;
+                możliwości logowania do serwisu;
+                utrzymania logowania użytkownika na każdej kolejnej stronie serwisu.</p>
+            <p>5. Serwis stosuje dwa zasadnicze rodzaje plików (cookies) - sesyjne i stałe. Pliki sesyjne są tymczasowe, przechowuje się je do momentu opuszczenia strony serwisu (poprzez wejście na inną stronę, wylogowanie lub wyłączenie przeglądarki). Pliki stałe przechowywane są w urządzeniu końcowym użytkownika do czasu ich usunięcia przez użytkownika lub przez czas wynikający z ich ustawień.</p>
+            <p>6. Użytkownik może w każdej chwili dokonać zmiany ustawień swojej przeglądarki, aby zablokować obsługę plików (cookies) lub każdorazowo uzyskiwać informacje o ich umieszczeniu w swoim urządzeniu. Inne dostępne opcje można sprawdzić w ustawieniach swojej przeglądarki internetowej. Należy pamiętać, że większość przeglądarek domyślnie jest ustawione na akceptację zapisu plików (cookies)w urządzeniu końcowym.</p>
+            <p>7. Operator Serwisu informuje, że zmiany ustawień w przeglądarce internetowej użytkownika mogą ograniczyć dostęp do niektórych funkcji strony internetowej serwisu.</p>
+            <p>8. Pliki (cookies) z których korzysta serwis (zamieszczane w urządzeniu końcowym użytkownika) mogą być udostępnione jego partnerom oraz współpracującym z nim reklamodawcą.</p>
+            <p>9. Informacje dotyczące ustawień przeglądarek internetowych dostępne są w jej menu (pomoc) lub na stronie jej producenta.</p>
+        </div>
+    </div>
+</div>
+<script>
+    var modal = document.getElementById('myDark');
+    var btn = document.getElementById("zap");
+    var span = document.getElementsByClassName("close")[0];
+    btn.onclick = function() { modal.style.display = "block"; }
+    span.onclick = function() { modal.style.display = "none";}
+    window.onclick = function(event) {
+        if (event.target == modal) { modal.style.display = "none";}
+    }
+</script>
 </body>
 </html>

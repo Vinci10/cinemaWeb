@@ -4,67 +4,127 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <title>Dane</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-    <link rel="stylesheet" type="text/css"
-          href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
-
-    <link rel="stylesheet" th:href="@{/css/layout.css}"
-          href="../static/css/layout.css" />
+<style>
+    html {
+        background: url("../images/nfs8.png") no-repeat left top,
+        url("../images/try3.gif") no-repeat left top;
+        background-size: cover;
+    }
+    .dark { position: fixed; z-index: 1; left: 0; top: 0;
+        width: 100%; height: 100%; background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.8);
+    }
+    .button { background-color: #4d4d4d; border: none; font-size: 13px; color: DarkGrey; padding: 5px 32px; text-align: center;
+        transition-duration: 0.4s; text-decoration: none; overflow: hidden; cursor: pointer; outline: none;
+    }
+    input::-webkit-input-placeholder       {text-indent: 0px; text-align: center; transition: text-indent 0.7s ease;}
+    input::-moz-placeholder                {text-indent: 0px; text-align: center; transition: text-indent 0.7s ease;}
+    input:-moz-placeholder                 {text-indent: 0px; text-align: center; transition: text-indent 0.7s ease;}
+    input:-ms-input-placeholder            {text-indent: 0px; text-align: center; transition: text-indent 0.7s ease;}
+    input:focus::-webkit-input-placeholder {text-indent: 500px; text-align: center; transition: text-indent 0.7s ease;}
+    input:focus::-moz-placeholder          {text-indent: 500px; text-align: center; transition: text-indent 0.7s ease;}
+    input:focus:-moz-placeholder           {text-indent: 500px; text-align: center; transition: text-indent 0.7s ease;}
+    input:focus:-ms-input-placeholder      {text-indent: 500px; text-align: center; transition: text-indent 0.7s ease;}
+    .specbut:hover:enabled { color: LavenderBlush ; background-color: #44a08c }
+    .specbut:active { color: DarkGrey ;background-color: #53723F; transform: translateY(4px); }
+    .dark-photo{ margin-left: 2%; margin-top: 2%; color: DarkGrey; background-color: #393834; position: absolute;}
+    .dark-top { margin-left: 300px; background-color: #454542; color: #b5f0ed; font-family: Impact Regular; font-size: 19pt;}
+    .dark-mid { padding: 2px; color: DarkGrey; font-family: Verdana; font-size: 10pt;}
+    #dark-bottom { top: 200px; left: 1175px; height: 200px; width: 50px; position: absolute; background-color: #31312f; color: DarkGrey; font-family: Verdana; font-size: 10pt; border: 1px solid #888; overflow: auto; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)}
+    #dark-bottom2 { top: 220px; left: 235px; height: 150px; width: 50px; position: absolute; background-color: #31312f; color: DarkGrey; font-family: Verdana; font-size: 10pt; border: 1px solid #888; overflow: auto; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)}
+    #dark-bottom3 { top: 150px; left: 445px; height: 150px; width: 50px; position: absolute; background-color: #31312f; color: DarkGrey; font-family: Verdana; font-size: 10pt; border: 1px solid #888; overflow: auto; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)}
+    a.fill-db {display: block; height: 100%; width: 100%; text-decoration: none;}
+    .dark-window { position: relative; background-color: #454542; margin: auto; padding: 0; border: 1px solid #888; overflow: auto; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    }
+    input[type=text] { width: 50%; height: 12%; font-family: Verdana; font-size: 10pt; text-align: center;
+        border: 2px #99ccff; border-radius: 4px; background-color: #4d4d4d;color: #b5f0ed; outline: none;}
+    .star { width:4%; height:4%; border-style: none; }
+</style>
 </head>
 <body>
-<div th:if="${successMessage=='null'}">
+<div class="dark">
+    <div id="dark-bottom">
+        <a href = "/movies?name=" class = "fill-db">
+            <div style="padding-left: 20px; padding-top: 21px; font-family: Impact Regular; font-size: 11pt; color: LightCoral;">
+                R<br/>E<br/>P<br/>E<br/>R<br/>T<br/>U<br/>A<br/>R
+            </div>
+        </a>
+    </div>
+    <div id="dark-bottom2">
+        <a th:href = "@{'/movie?name='+${name}}" class = "fill-db">
+            <div style="padding-left: 10px; padding-top: 21px; font-family: Impact Regular; font-size: 11pt; color: LightCoral;">
+                P<br/>O<br/>W<br/>R<br/>Ó<br/>T
+            </div>
+        </a>
+    </div>
+    <div th:if="${successMessage=='null'}">
 
-    <div sec:authorize="isAnonymous()">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 col-md-offset-3">
-                    <form autocomplete="off"
-                          th:object="${guestTicket}" method="post" class="form-horizontal"
-                          role="form">
+        <div sec:authorize="isAnonymous()">
+            <div class="dark-window" style="height:415px; width: 815px; top: 94px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <form autocomplete="off"
+                              th:object="${guestTicket}" method="post" class="form-horizontal"
+                              role="form">
 
-                        <div class="form-group">
-                            <div class="col-sm-9">
-                                <label	th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-                                          class="validation-message"></label>
-                                <input type="text" th:field="*{email}"
-                                       placeholder="Email" class="form-control" />
-
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <input type="text" th:field="*{email}"
+                                           style="position: absolute; margin-left: 24%; margin-top: 9%;" maxlength="25" name="Email" placeholder="Email" class="form-control" />
+                                    <label	th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                              class="validation-message" style="position: absolute; top: 22.0%; left: 75.5%; "></label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-9">
-                                <input type="text" th:field="*{name}" placeholder="Name"
-                                       class="form-control" /> <label
-                                    th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
-                                    class="validation-message"></label>
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <input type="text" style="position: absolute; margin-left: 24%; margin-top: 17%;" maxlength="25" name="Imię" placeholder="Imię" th:field="*{name}"
+                                           class="form-control" /> <label
+                                        th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                                        class="validation-message" style="position: absolute; top: 37.5%; left: 75.5%; "></label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-9">
-                                <input type="text" th:field="*{lastName}"
-                                       placeholder="Last Name" class="form-control" /> <label
-                                    th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
-                                    class="validation-message"></label>
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <input type="text" style="position: absolute; margin-left: 24%; margin-top: 25%;" maxlength="25" name="Nazwisko" placeholder="Nazwisko" th:field="*{lastName}"
+                                           class="form-control" /> <label
+                                        th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                                        class="validation-message" style="position: absolute; top: 52.5%; left: 75.5%; "></label>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <div class="col-sm-9">
-                                <button type="submit" class="btn btn-primary btn-block">Buy</button>
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <button type="submit" class="button specbut" style="position: absolute; margin-left: 44%; margin-top: 40%;">Kup</button>
+                                </div>
                             </div>
-                        </div>
 
-                    </form>
+                        </form>
+                    </div>
                 </div>
+            </div>
+        </div>
+        </div>
+</div>
+    <div th:unless="${successMessage=='null'}">
+        <div class="dark-window" style="height:415px; width: 810px; top: 94px;">
+            <div class="dark-top" style="height: 25px; text-transform: uppercase" >Pomyślnie zakupiono bilet </div>
+
+            <div style="margin-left: 37%; margin-top: 6%; margin-right: 5%; color: DarkGrey; font-family: Verdana; font-size: 10pt;">
+                Szczegóły biletu: <br/><br/>
+                Imię: <th th:text="${nam}"></th><br/>
+                Nazwisko: <th th:text="${lastname}"></th><br/>
+                Email: <th th:text="${email}"></th><br/>
+                Numer biletu:  <th th:text="${id}"></th><br/>
+                Tytuł filmu: <th th:text="${name}"></th><br/>
+                Dzień: <td th:text="${#dates.format(day, 'dd MMM yyyy')}"></td><br/>
+                Godzina: <th th:text="${time}"></th> <br/>
+                Miejsce: <th th:text="${place}"></th><br/>
+                Sala: <th th:text="${room}"></th><br/><br/>
+                <div style=" color: #b5f0ed; font-family: Impact Regular; font-size: 13pt; position: absolute;">
+                    CENA BILETU: <span th:text="@{${#numbers.formatDecimal(movieprice, 0, 2)} + ' zł'}"/><br/><br/></div>
             </div>
         </div>
     </div>
 </div>
-
-<div th:unless="${successMessage=='null'}">
-    <span th:utext="${successMessage}"></span>
-</div>
-<a href="/">Strona glowna</a>
 </body>
 </html>

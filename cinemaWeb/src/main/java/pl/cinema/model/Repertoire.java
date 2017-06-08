@@ -9,8 +9,8 @@ public class Repertoire {
     @EmbeddedId
     private RepertoireId id;
 
-    @Column(name = "room_id")
-    private int room;
+    @Column(name = "movie_name")
+    private String moviename;
 
     public RepertoireId getId() {
         return id;
@@ -20,11 +20,12 @@ public class Repertoire {
         this.id = id;
     }
 
-    public int getRoom() {
-        return room;
+    public String getMoviename() {
+        return moviename;
     }
 
-    public void setRoom(int room) {
-        this.room = room;
+    public void setMoviename(String moviename) {
+        this.moviename = moviename;
     }
+
 }

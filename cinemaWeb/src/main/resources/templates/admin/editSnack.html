@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <title >Edytuj przekaske</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            Nazwa
+            <form autocomplete="off" action="#" th:action="@{/admin/editSnack/{name}(name=${snack.name})}"
+                  th:object="${snack}" method="post" class="form-horizontal"
+                  role="form">
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                               class="validation-message"  ></label>
+                        <input type="text" th:field="*{name}" th:value="${snack.name}" class="form-control"  />
+                    </div>
+                </div>
+                Cena
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="text" th:field="*{price}" th:value="${snack.price}"
+                               class="form-control"  />
+                        <div th:if="${#fields.hasErrors('price')}">Niepoprawna cena</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <button type="submit" name ="sub" class="button specbut">Edytuj</button>
+                    </div>
+                </div>
+                <th th:text="${message}"></th>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
