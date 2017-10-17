@@ -1,12 +1,56 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <title>Kino TAMS</title>
+    <div sec:authorize="isAnonymous()">
+
+        <style>
+        html {
+        background: url("../images/nfs5.png") no-repeat left top,
+        url("../images/try3.gif") no-repeat left top;
+        background-size: cover;
+        }
+        </style>
+
+    </div>
+
+    <div sec:authorize="isAuthenticated()">
+
+        <style>
+            html {
+                background: url("../images/nfs10.png") no-repeat left top,
+                url("../images/try3.gif") no-repeat left top;
+                background-size: cover;
+            }
+        </style>
+
+    </div>
+
 </head>
 <body>
-    <h1>
-        <th th:text="${hello}">hello</th>
-    </h1>
-    <a class="class1 class2" href="/movies?name=">Repertuar</a>
+
+<a href="/movies?name="><img src = "../images/CinUN.png" alt="Repertuar" style="position: absolute; left: 42%; bottom: 91%; width:17%"
+                             onMouseOver="this.src='../images/CinN.png'" onMouseOut="this.src='../images/CinUN.png'"/></a>
+
+<div sec:authorize="isAnonymous()">
+    <a href="/login"><img src = "../images/LogUN.png" alt="Logowanie" style="position: absolute; top: 20%;"
+                          onMouseOver="this.src='../images/LogN.png'" onMouseOut="this.src='../images/LogUN.png'"/></a>
+    <a href="/registration"><img src = "../images/RejUN.png" alt="Rejestracja" style="position: absolute; top: 21%; left: 81%;"
+                                 onMouseOver="this.src='../images/RejN.png'" onMouseOut="this.src='../images/RejUN.png'"/></a>
+</div>
+
+<div sec:authorize="hasAuthority('admin')">
+    <a href="/admin" style="position: absolute; left: 4.8%; top: 4.5%; text-decoration: none; font-family: Impact Regular; color: #b5f0ed;">
+        <th th:text="${info}"></th></a>
+    <a th:href="@{/logout}"><img src = "../images/exit.png" alt="Wyloguj" style="position: absolute; left: 17%; top: 5.1%"/></a>
+</div>
+
+<div sec:authorize="hasAuthority('user')">
+    <a href="/user" style="position: absolute; left: 4.8%; top: 4.5%; text-decoration: none; font-family: Impact Regular; color: #b5f0ed;">
+        <th th:text="${info}"></th></a>
+    <a th:href="@{/logout}"><img src = "../images/exit.png" alt="Wyloguj" style="position: absolute; left: 17%; top: 5.1%"/></a>
+</div>
 </body>
 </html>

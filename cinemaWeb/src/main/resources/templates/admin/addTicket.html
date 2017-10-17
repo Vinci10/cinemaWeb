@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dodaj bilet</title>
+    <style>
+        html {
+            background: url("../images/nfs10.png") no-repeat left top,
+            url("../images/try3.gif") no-repeat left top;
+            background-size: cover;
+        }
+        .dark { position: fixed; z-index: 1; left: 0; top: 0;
+            width: 100%; height: 100%; background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.8);
+        }
+        .button { background-color: #4d4d4d; border: none; font-size: 13px; color: DarkGrey; padding: 5px 32px; text-align: center;
+            transition-duration: 0.4s; text-decoration: none; overflow: hidden; cursor: pointer; outline: none;
+        }
+        .specbut:hover:enabled { color: LavenderBlush ; background-color: #44a08c }
+        .specbut:active { color: DarkGrey ;background-color: #53723F; transform: translateY(4px); }
+        .dark-photo{ margin-left: 2%; margin-top: 2%; color: DarkGrey; background-color: #393834; position: absolute;}
+        .dark-top { margin-left: 300px; background-color: #454542; color: #b5f0ed; font-family: Impact Regular; font-size: 19pt;}
+        .dark-mid { padding: 2px; color: DarkGrey; font-family: Verdana; font-size: 10pt;}
+        #dark-bottom { top: 200px; left: 1175px; height: 200px; width: 50px; position: absolute; background-color: #31312f; color: DarkGrey; font-family: Verdana; font-size: 10pt; border: 1px solid #888; overflow: auto; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)}
+        #dark-bottom2 { top: 220px; left: 235px; height: 150px; width: 50px; position: absolute; background-color: #31312f; color: DarkGrey; font-family: Verdana; font-size: 10pt; border: 1px solid #888; overflow: auto; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)}
+        a.fill-db {display: block; height: 100%; width: 100%; text-decoration: none;}
+        .dark-window { position: relative; background-color: #454542; margin: auto; padding: 0; border: 1px solid #888; overflow: auto; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);}
+        .dark-sit { position: relative; background-color: #333330; border: 1px solid #9f9e9e; overflow: auto; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);}
+        .star { width:4%; height:4%; border-style: none; }
+        .styled-combo {
+            border: 1px solid #888;
+            overflow: auto;
+            height: 34px;
+            background: #333330;
+            width: 100px;
+        }
+        .styled-combo select {
+            border-radius: 0;
+            background: #333330;
+            height: 34px;
+            padding-left: 10px;
+            border: 0;
+            font-size: 16px;
+            line-height: 1;
+            -webkit-appearance: none;
+            width: 100px;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body>
+<a href="/admin" style="position: absolute; left: 4.8%; top: 4.5%; text-decoration: none; font-family: Impact Regular; color: #b5f0ed;">
+    Administrator</a>
+<a th:href="@{/logout}"><img src = "../images/exit.png" alt="Wyloguj" style="position: absolute; left: 17%; top: 5.1%"/></a>
+<div class="dark-window" style="height:415px; width: 815px; top: 94px;">
+    <div class="dark-top" style="height: 25px; text-transform: uppercase"> dodaj bilet</div>
+<div class="center">
+    <form method="get" >
+        <div class="styled-combo" style = "position: absolute; margin-left: 4%; margin-top: 5%;">
+            <select name="day" style = "font-family: Verdana; text-transform: uppercase; font-size: 10pt; color: #b5f0ed;">
+                <option>dzień</option>
+                <tr th:each="day : ${days}">
+                    <td>
+                        <option th:value="${day}" th:text="${day}"></option>
+                    </td>
+                </tr>
+            </select>
+        </div>
+        <div class="styled-combo" style = "position: absolute; margin-left: 20%; margin-top: 5%;">
+            <select name="time" style = "font-family: Verdana; text-transform: uppercase; font-size: 10pt; color: #b5f0ed;">
+                <option>godzina</option>
+                <option value="10:00:00" >10:00</option>
+                <option value="13:30:00" >13:30</option>
+                <option value="17:15:00" >17:15</option>
+                <option value="21:00:00" >21:00</option>
+                <option value="23:45:00" >23:45</option>
+            </select>
+        </div>
+        <div class="styled-combo" style = "position: absolute; margin-left: 35%; margin-top: 5%;">
+            <select name="room" style = "font-family: Verdana; text-transform: uppercase; font-size: 10pt; color: #b5f0ed;">
+                <option>sala</option>
+                <option value="1" >1</option>
+                <option value="2" >2</option>
+                <option value="3" >3</option>
+            </select>
+        </div>
+        <div class="styled-combo" style = "position: absolute; margin-left: 50%; margin-top: 5%;">
+            <select name="name" style = "font-family: Verdana; text-transform: uppercase; font-size: 10pt; color: #b5f0ed;">
+                <option>film</option>
+                <tr th:each="movie : ${movies}">
+                    <td>
+                        <option th:value="${movie.name}" th:text="${movie.name}"></option>
+                    </td>
+                </tr>
+            </select>
+        </div>
+        <button type="submit" class="button specbut" style="margin-top: 6%; margin-left: 75%;" >Dodaj</button>
+    </form>
+    <th th:text="${message}"></th>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:formactionth="http://www.w3.org/1999/xhtml">
+<head>
+    <title th:text="${movie.name}"></title>
+    <style>
+        html {
+            background: url("../images/nfs8.png") no-repeat left top,
+            url("../images/try3.gif") no-repeat left top;
+            background-size: cover;
+        }
+        .dark { position: fixed; z-index: 1; left: 0; top: 0;
+            width: 100%; height: 100%; background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.8);
+        }
+        .button { background-color: #4d4d4d; border: none; font-size: 13px; color: DarkGrey; padding: 5px 32px; text-align: center;
+            transition-duration: 0.4s; text-decoration: none; overflow: hidden; cursor: pointer; outline: none;
+        }
+        .specbut:hover:enabled { color: LavenderBlush ; background-color: #44a08c }
+        .specbut:active { color: DarkGrey ;background-color: #53723F; transform: translateY(4px); }
+        .dark-photo{ margin-left: 2%; margin-top: 2%; color: DarkGrey; background-color: #393834; position: absolute;}
+        .dark-top { margin-left: 300px; background-color: #454542; color: #b5f0ed; font-family: Impact Regular; font-size: 19pt;}
+        .dark-mid { padding: 2px; color: DarkGrey; font-family: Verdana; font-size: 10pt;}
+        #dark-bottom { top: 200px; left: 1175px; height: 200px; width: 50px; position: absolute; background-color: #31312f; color: DarkGrey; font-family: Verdana; font-size: 10pt; border: 1px solid #888; overflow: auto; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)}
+        a.fill-db {display: block; height: 100%; width: 100%; text-decoration: none;}
+        .dark-window { position: relative; background-color: #454542; margin: auto; padding: 0; border: 1px solid #888; overflow: auto; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+        }
+        .star { width:4%; height:4%; border-style: none; }
+    </style>
+</head>
+<body>
+<div class="dark">
+    <div id="dark-bottom">
+        <a href = "/movies?name=" class = "fill-db">
+            <div style="padding-left: 20px; padding-top: 21px; font-family: Impact Regular; font-size: 11pt; color: LightCoral;">
+                R<br/>E<br/>P<br/>E<br/>R<br/>T<br/>U<br/>A<br/>R
+            </div>
+        </a>
+    </div>
+    <div class="dark-window" style="height:415px; width: 810px; top: 94px;">
+        <div class="dark-top" style="height: 25px; text-transform: uppercase" th:text="${movie.name}"> </div>
+        <div class="dark-mid">
+            <div class="dark-photo" style="height:280px; width: 200px;">
+                <img th:src="@{'../images/'+${movie.name}+'.png'}" alt="Poster"/>
+            </div>
+        </div>
+
+        <div style="margin-left: 37%; margin-top: 6%; margin-right: 5%; color: DarkGrey; font-family: Verdana; font-size: 10pt;">
+            <br/>
+            Premiera:  <th th:text="${movie.premiere}"></th><br/>
+            Produkcja: <th th:text="${movie.production}"></th><br/>
+            Gatunek: <th th:text="${movie.type}"></th><br/>
+            Reżyseria: <th th:text="${movie.director}"></th> <br/>
+            Czas trwania: <th th:text="${movie.duration}"></th><br/>
+            Napisy: <th th:text="${movie.subtitles}"></th><br/>
+            3D: <th th:text="${movie.td}"></th><br/>
+            Cena biletu: <span th:text="@{${#numbers.formatDecimal(movie.price, 0, 2)} + ' zł'}"/><br/><br/>
+            <th th:text="${movie.description}"></th>
+
+            <div id = "stars" style = "position: absolute; top: 50px;">
+                <a th:href="@{'/movie?name=' + ${movie.name} + '&amp;rate=1'}"><img id = 's1' src ="../images/0.png" class = "star" alt="0" onMouseOver="this.src ='../images/1.png'" onMouseOut="this.src ='../images/0.png'"/></a>
+                <a th:href="@{'/movie?name=' + ${movie.name} + '&amp;rate=2'}"><img id = 's2' src ="../images/0.png" class = "star" alt="0"
+                                                   onMouseOver="this.src ='../images/2.png'; document.getElementById('s1').src = '../images/1.png'"
+                                                   onMouseOut="this.src ='../images/0.png'; document.getElementById('s1').src = '../images/0.png'"/></a>
+                <a th:href="@{'/movie?name=' + ${movie.name} + '&amp;rate=3'}"><img id = 's3' src ="../images/0.png" class = "star" alt="0"
+                                                   onMouseOver="this.src ='../images/3.png'; document.getElementById('s1').src = '../images/1.png'; document.getElementById('s2').src = '../images/2.png'"
+                                                   onMouseOut="this.src ='../images/0.png'; document.getElementById('s1').src = '../images/0.png'; document.getElementById('s2').src = '../images/0.png'"/></a>
+                <a th:href="@{'/movie?name=' + ${movie.name} + '&amp;rate=4'}"><img id = 's4' src ="../images/0.png" class = "star" alt="0"
+                                                   onMouseOver="this.src ='../images/4.png'; document.getElementById('s1').src = '../images/1.png'; document.getElementById('s2').src = '../images/2.png'; document.getElementById('s3').src = '../images/3.png'"
+                                                   onMouseOut="this.src ='../images/0.png'; document.getElementById('s1').src = '../images/0.png'; document.getElementById('s2').src = '../images/0.png'; document.getElementById('s3').src = '../images/0.png'"/></a>
+                <a th:href="@{'/movie?name=' + ${movie.name} + '&amp;rate=5'}">
+                    <img src ="../images/0.png" class = "star" alt="0"
+                         onMouseOver="this.src ='../images/5.png'; document.getElementById('s1').src = '../images/1.png'; document.getElementById('s2').src = '../images/2.png'
+										 document.getElementById('s3').src = '../images/3.png'; document.getElementById('s4').src = '../images/4.png'"
+                         onMouseOut="this.src ='../images/0.png'; document.getElementById('s1').src = '../images/0.png'; document.getElementById('s2').src = '../images/0.png'
+										 document.getElementById('s3').src = '../images/0.png'; document.getElementById('s4').src = '../images/0.png'"/>
+                </a>
+            </div>
+
+        </div>
+        <div style="margin-left: 10%; margin-top: 9%; margin-right: 5%; color: #b5f0ed; font-family: Impact Regular; font-size: 13pt; position: absolute;">
+            OCENA  <span th:text="@{${#numbers.formatDecimal(rating, 0, 2)}}"/><br/>
+        </div>
+        <div style="margin-left: 11%; margin-top: 13%; margin-right: 5%; color: DarkGrey; font-family: Impact Regular; font-size: 11pt; position: absolute;">
+            GLOSY  <th th:text="${movie.numberofvotes}"></th>
+        </div>
+        <div th:unless="${message=='null'}">
+            <div sec:authorize="hasAuthority('user')">
+            <form th:action="@{/buyticket/{name}(name=${movie.name})}">
+                <input type="submit" class="button specbut" style="position: absolute; left:75%; bottom: 10%" value="Kup bilet" />
+            </form>
+            </div>
+            <div sec:authorize="isAnonymous()">
+                <form th:action="@{/buyticket/{name}(name=${movie.name})}">
+                    <input type="submit" class="button specbut" style="position: absolute; left:75%; bottom: 10%" value="Kup bilet" />
+                </form>
+            </div>
+        </div>
+            <div sec:authorize="hasAuthority('admin')">
+                <form th:action="@{/admin/deleteMovie/{name}(name=${movie.name}) }">
+                    <input type="submit" class="button specbut" style="position: absolute; left:55%; bottom: 10%" value="Usun" />
+                </form>
+
+                <form th:action="@{/admin/editMovie/{name}(name=${movie.name})}">
+                    <input type="submit" class="button specbut" style="position: absolute; left:75%; bottom: 10%" value="Edytuj" />
+                </form>
+            </div>
+        </div>
+</div>
+</body>
+</html>

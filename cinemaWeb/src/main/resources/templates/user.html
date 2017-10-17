@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Panel użytkownika</title>
+    <style>
+        html {
+            background: url("../images/nfs10.png") no-repeat left top,
+            url("../images/try3.gif") no-repeat left top;
+            background-size: cover;
+        }
+        .dark { position: fixed; z-index: 1; left: 0; top: 0;
+            width: 100%; height: 100%; background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.8);
+        }
+        .button { background-color: #4d4d4d; border: none; font-size: 13px; color: DarkGrey; padding: 5px 32px; text-align: center;
+            transition-duration: 0.4s; text-decoration: none; overflow: hidden; cursor: pointer; outline: none;
+        }
+        .specbut:hover:enabled { color: LavenderBlush ; background-color: #44a08c }
+        .specbut:active { color: DarkGrey ;background-color: #53723F; transform: translateY(4px); }
+        .dark-photo{ margin-left: 2%; margin-top: 2%; color: DarkGrey; background-color: #393834; position: absolute;}
+        .dark-top { margin-left: 30px; background-color: #454542; color: #b5f0ed; font-family: Impact Regular; font-size: 19pt;}
+        .dark-mid { padding: 2px; color: DarkGrey; font-family: Verdana; font-size: 10pt;}
+        #dark-bottom { top: 200px; left: 1175px; height: 200px; width: 50px; position: absolute; background-color: #31312f; color: DarkGrey; font-family: Verdana; font-size: 10pt; border: 1px solid #888; overflow: auto; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)}
+        #dark-bottom2 { top: 220px; left: 235px; height: 150px; width: 50px; position: absolute; background-color: #31312f; color: DarkGrey; font-family: Verdana; font-size: 10pt; border: 1px solid #888; overflow: auto; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)}
+        a.fill-db {display: block; height: 100%; width: 100%; text-decoration: none;}
+        .dark-window { position: relative; background-color: #454542; margin: auto; padding: 0; border: 1px solid #888; overflow: auto; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);}
+        .dark-sit { position: relative; background-color: #333330; border: 1px solid #9f9e9e; overflow: auto; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);}
+        .star { width:4%; height:4%; border-style: none; }
+        .styled-combo {
+            border: 1px solid #888;
+            overflow: auto;
+            height: 34px;
+            background: #333330;
+            width: 100px;
+        }
+        .styled-combo select {
+            border-radius: 0;
+            background: #333330;
+            height: 34px;
+            padding-left: 10px;
+            border: 0;
+            font-size: 16px;
+            line-height: 1;
+            -webkit-appearance: none;
+            width: 100px;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body>
+<a href="/" style="position: absolute; left: 4.8%; top: 4.5%; text-decoration: none; font-family: Impact Regular; color: #b5f0ed;">
+    <th th:text="${info}"></th></a>
+<a th:href="@{/logout}"><img src = "../images/exit.png" alt="Wyloguj" style="position: absolute; left: 17%; top: 5.1%"/></a>
+<div class="dark-window" style="height:415px; width:415px; top: 94px;">
+    <div class="dark-top" style="height: 25px; text-transform: uppercase" text="Witaj"></div>
+    <div style="margin-left: 0%;font-family: Impact; margin-top: 20%; margin-right: 5%; color: #b5f0ed; font-family: Impact Regular; font-size: 13pt; position: absolute; left: 10%;">
+        Imie:  <th th:text="${user.name}"></th><br/>
+        Nazwisko: <th th:text="${user.lastName}"></th><br/>
+        Email: <th th:text="${user.email}"></th><br/>
+        PUNKTY PREMIUM:  <th th:text="${user.premium}"></th><br/>
+    </div>
+    <form th:action="@{/user/history/{id}(id=${user.id})}">
+        <input type="submit" class="button specbut" style="position: absolute; left:10%; bottom: 10%" value="Przeglądaj historię biletów" />
+    </form>
+    <form th:action="@{/user/changePassword/{id}(id=${user.id})}">
+        <input type="submit" class="button specbut" style="position: absolute; left:10%; bottom: 25%" value="Zmień hasło" />
+    </form>
+    <br/>
+
+</div>
+
+</body>
+</html>

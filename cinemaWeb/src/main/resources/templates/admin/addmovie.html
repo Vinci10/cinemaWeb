@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml"
+      xmlns:hth="http://www.w3.org/1999/xhtml">
+<head>
+    <title >Dodaj film</title>
+    <style>
+        html {
+            background: url("../images/nfs11.png") no-repeat left top,
+            url("../images/try3.gif") no-repeat left top;
+            background-size: cover;
+        }
+        .button { background-color: #4d4d4d; border: none; font-size: 13px; color: DarkGrey; padding: 5px 65px; text-align: center;
+            transition-duration: 0.4s; text-decoration: none; overflow: hidden; cursor: pointer; outline: none;
+        }
+        input::-webkit-input-placeholder       {text-indent: 0px; text-align: center; transition: text-indent 0.7s ease;}
+        input::-moz-placeholder                {text-indent: 0px; text-align: center; transition: text-indent 0.7s ease;}
+        input:-moz-placeholder                 {text-indent: 0px; text-align: center; transition: text-indent 0.7s ease;}
+        input:-ms-input-placeholder            {text-indent: 0px; text-align: center; transition: text-indent 0.7s ease;}
+        input:focus::-webkit-input-placeholder {text-indent: 500px; text-align: center; transition: text-indent 0.7s ease;}
+        input:focus::-moz-placeholder          {text-indent: 500px; text-align: center; transition: text-indent 0.7s ease;}
+        input:focus:-moz-placeholder           {text-indent: 500px; text-align: center; transition: text-indent 0.7s ease;}
+        input:focus:-ms-input-placeholder      {text-indent: 500px; text-align: center; transition: text-indent 0.7s ease;}
+        .specbut:hover:enabled { color: LavenderBlush ; background-color: #44a08c }
+        .specbut:active { color: DarkGrey ;background-color: #53723F; transform: translateY(4px); }
+        input[type=text] { width: 20%; height: 7%; font-family: Verdana; font-size: 12pt; text-align: center;
+            border: 2px #99ccff; border-radius: 4px; background-color: #4d4d4d;color: #b5f0ed; outline: none;}
+        textarea {
+            background-color:#4d4d4d;color: #b5f0ed; font-family: Verdana; font-size: 12pt; border: 2px #99ccff; border-radius: 4px;
+            position: absolute; margin-left: 70%; margin-top: 8%; outline: none; resize: none;
+            width: 25%; height: 58%;
+        }
+    </style>
+</head>
+<body>
+<a href="/movies?name="><img src = "../images/CinUN.png" alt="Repertuar" style="position: absolute; left: 42%; bottom: 91%; width:17%"
+                             onMouseOver="this.src='../images/CinN.png'" onMouseOut="this.src='../images/CinUN.png'"/></a>
+<a href="/admin" style="position: absolute; left: 4.8%; top: 4.5%; text-decoration: none; font-family: Impact Regular; color: #b5f0ed;">
+    Administrator</a>
+<a th:href="@{/logout}"><img src = "../images/exit.png" alt="Wyloguj" style="position: absolute; left: 17%; top: 5.1%"/></a>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form autocomplete="off" action="#" th:action="@{/admin/addMovie}" th:object="${movie}" method="post" class="form-horizontal" role="form">
+                <input type="text" th:field="*{name}" style="position: fixed; margin-left: 8%; margin-top: 8%;"  placeholder="Nazwa"  class="form-control" />
+                <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="validation-message" style="position: absolute; top: 20%;   left: 29%; " ></label>
+                <input type="text" th:field="*{production}" style="position: absolute; margin-left: 8%; margin-top: 12%;" placeholder="Produkcja" class="form-control" />
+                <label th:if="${#fields.hasErrors('production')}" th:errors="*{production}" class="validation-message" style="position: absolute; top: 28%; left: 29%; "></label>
+                <input type="text" th:field="*{director}" style="position: absolute; margin-left: 8%; margin-top: 16%;" placeholder="Reżyseria" class="form-control"/>
+                <label th:if="${#fields.hasErrors('director')}" th:errors="*{director}" class="validation-message" style="position: absolute; top: 36%; left: 29%; "></label>
+                <input type="text" th:field="*{type}" style="position: absolute; margin-left: 8%; margin-top: 20%;" placeholder="Gatunek"  class="form-control" />
+                <label th:if="${#fields.hasErrors('type')}" th:errors="*{type}" class="validation-message" style="position: absolute; top: 44%; left: 29%; " ></label>
+                <input type="text" th:field="*{subtitles}" style="position: absolute; margin-left: 8%; margin-top: 24%;" placeholder="Napisy"  class="form-control"/>
+                <label th:if="${#fields.hasErrors('subtitles')}" th:errors="*{subtitles}" class="validation-message" style="position: absolute; top: 52%; left: 29%; " ></label>
+                <input type="text" th:field="*{td}" style="width: 8%; height: 5%; position: absolute; margin-left: 8%; margin-top: 29%;" placeholder="3D" class="form-control" />
+                <label th:if="${#fields.hasErrors('td')}" th:errors="*{td}" class="validation-message" style="position: absolute; top: 66%; left: 5%; "></label>
+                <input type="text" th:field="*{price}" style="width: 8%; height: 5%; position: absolute; margin-left: 20%; margin-top: 29%;" placeholder="Cena" class="form-control" />
+                <div th:if="${#fields.hasErrors('price')}"><label style="position: absolute; top: 66%; left: 20%; ">Niepoprawna cena biletu</label> </div>
+                <input type="text" th:field="*{duration}" style="width: 8%; height: 5%; position: absolute; margin-left: 8%; margin-top: 33%;"  placeholder="Czas Trwania" class="form-control"/>
+                <label th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}" class="validation-message" style="position: absolute; top: 75%; left: 5%; "></label>
+                <input type="text" th:field="*{premiere}" style="width: 8%; height: 5%; position: absolute; margin-left: 20%; margin-top: 33%;" placeholder="Premiera"  class="form-control"/>
+                <label	th:if="${#fields.hasErrors('premiere')}" th:errors="*{premiere}" class="validation-message" style="position: absolute; top: 75%; left: 20%; "></label>
+                <textarea th:field="*{description}" style="position: fixed;" class="form-control" />
+                <label th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="validation-message" style="position: absolute; top: 20%; left: 60%; "></label>
+                <button type="submit" class="button specbut" style="position: fixed; margin-left: 42%; margin-top: 40%;">Gotowe</button>
+            </form>
+            <label th:text="${message}" style="position: absolute; top: 80%; left: 41%;" ></label>
+        </div>
+    </div>
+</div>
+</body>
+</html>
